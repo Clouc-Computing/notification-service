@@ -21,7 +21,8 @@ jobs:
     - name: Install dependencies
       run: |
         pip3 install -r requirements.txt
-
+    - name: Debug Environment Variables
+      run: env | grep AWS
     - name: Deploy to AWS Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v20
       with:
