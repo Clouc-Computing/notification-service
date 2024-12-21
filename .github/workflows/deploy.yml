@@ -21,6 +21,24 @@ jobs:
     - name: Install dependencies
       run: |
         pip3 install -r requirements.txt
+- name: Debug AWS Environment Variables
+  run: |
+    echo "Checking if AWS_ACCESS_KEY_ID is set..."
+    if [ -z "$AWS_ACCESS_KEY_ID" ]; then
+      echo "AWS_ACCESS_KEY_ID is not set"
+    else
+      echo "AWS_ACCESS_KEY_ID is set"
+    fi
+
+    echo "Checking if AWS_SECRET_ACCESS_KEY is set..."
+    if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+      echo "AWS_SECRET_ACCESS_KEY is not set"
+    else
+      echo "AWS_SECRET_ACCESS_KEY is set"
+    fi
+  env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Deploy to AWS Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v20
       with:
